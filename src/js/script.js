@@ -41,13 +41,20 @@
       
       covers.addEventListener('dblclick', function(event){
         event.preventDefault();
-        covers.classList.add(select.class.favourite);
         const id = covers.getAttribute('data-id');
-        favoriteBook.push(id);    
+
+        if(!covers.classList.contains(select.class.favourite)){
+          covers.classList.add(select.class.favourite);
+          favoriteBook.push(id);
+        } else {
+          
+          favoriteBook.splice(favoriteBook.indexOf(id), 1);
+          covers.classList.remove(select.class.favourite); 
+        }          
       });
     }
-  }
-   
+  };
+  
   render();
   initActions();
   console.log('favoriteBook:', favoriteBook);
