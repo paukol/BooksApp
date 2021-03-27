@@ -20,6 +20,7 @@
 
   const templateOfBooks = [];
   const favoriteBook = [];
+  
 
   const render = function() {
    
@@ -34,30 +35,30 @@
   };
 
   const initActions = function(){
-    
-    for(let book of templateOfBooks){
-      let covers = book.querySelector('.book__image');
-      console.log('covers:', covers);
-      
-      covers.addEventListener('dblclick', function(event){
-        event.preventDefault();
-        const id = covers.getAttribute('data-id');
 
-        if(!covers.classList.contains(select.class.favourite)){
-          covers.classList.add(select.class.favourite);
-          favoriteBook.push(id);
-        } else {
-          
-          favoriteBook.splice(favoriteBook.indexOf(id), 1);
-          covers.classList.remove(select.class.favourite); 
-        }          
-      });
-    }
-  };
+    
+    const booksContainer = document.querySelector(select.containerOf.booksList);
+    booksContainer.addEventListener('dblclick', function(event){
+      
+    event.preventDefault();
+    const clickedElement = event.target.offsetParent;
+    
+    if(clickedElement.classList.contains('book__image')){      
+            let id = clickedElement.getAttribute('data-id');
   
+             if(!clickedElement.classList.contains(select.class.favourite)){
+               clickedElement.classList.add(select.class.favourite);
+               favoriteBook.push(id);
+
+             } else {
+               clickedElement.classList.remove(select.class.favourite);
+               favoriteBook.splice(favoriteBook.indexOf(id), 1);
+             }
+           }
+         });
+       };
+
   render();
   initActions();
   console.log('favoriteBook:', favoriteBook);
-
-  
 }
